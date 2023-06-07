@@ -1,6 +1,6 @@
-﻿using ssSystem.Models;
+﻿using learningGate.Models;
 
-namespace ssSystem.ViewModels;
+namespace learningGate.ViewModels;
 
 public class UserDetailViewModel
 {

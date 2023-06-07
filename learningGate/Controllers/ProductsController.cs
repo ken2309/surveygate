@@ -8,23 +8,23 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ssSystem.Data;
-using ssSystem.Interfaces;
-using ssSystem.Models;
-using ssSystem.ViewModels;
+using learningGate.Data;
+using learningGate.Interfaces;
+using learningGate.Models;
+using learningGate.ViewModels;
 
-namespace ssSystem.Views
+namespace learningGate.Views
 {
     public class ProductsController : Controller
     {
-        private readonly ssDbContext _context;
+        private readonly learningGateDbContext _context;
         private readonly UserManager<Employee> _userManager;
         private readonly SignInManager<Employee> _signInManager;
         private readonly IPhotoService _photoService;
 
 
         public ProductsController(UserManager<Employee> userManager,
-            SignInManager<Employee> signInManager, ssDbContext context, IPhotoService photoService)
+            SignInManager<Employee> signInManager, learningGateDbContext context, IPhotoService photoService)
         {
             _context = context;
             _signInManager = signInManager;
@@ -37,8 +37,8 @@ namespace ssSystem.Views
         {
             if (User.Identity.IsAuthenticated)
             {
-                var ssDbContext = _context.Products.Include(p => p.ProductType).Include(p => p.Images).ToList();
-                var viewModels = ssDbContext.Select(product => new ProductViewModel
+                var learningGateDbContext = _context.Products.Include(p => p.ProductType).Include(p => p.Images).ToList();
+                var viewModels = learningGateDbContext.Select(product => new ProductViewModel
                 {
                     ProductId = product.Id,
                     Name = product.Name,
@@ -388,7 +388,7 @@ namespace ssSystem.Views
             {
                 if (_context.Products == null)
                 {
-                    return Problem("Entity set 'ssDbContext.Products'  is null.");
+                    return Problem("Entity set 'learningGateDbContext.Products'  is null.");
                 }
 
                 // var currentUser = await _userManager.GetUserAsync(User);

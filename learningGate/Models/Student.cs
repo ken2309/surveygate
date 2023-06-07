@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace learningGate.Models;
 
-public partial class Customer
+public partial class Student
 {
     [Key]
     public int Id { get; set; }

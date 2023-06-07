@@ -1,4 +1,4 @@
-﻿namespace ssSystem.ViewModels;
+﻿namespace learningGate.ViewModels;
 
 public class UserViewModel
 {

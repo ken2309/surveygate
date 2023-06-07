@@ -1,23 +1,23 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using ssSystem.Data;
-using ssSystem.Models;
-using ssSystem.ViewModels;
+using learningGate.Data;
+using learningGate.Models;
+using learningGate.ViewModels;
 
-namespace ssSystem.Controllers
+namespace learningGate.Controllers
 {
     public class AccountController : Controller
     {
         private readonly UserManager<Employee> _userManager;
         private readonly SignInManager<Employee> _signInManager;
 
-        private readonly ssDbContext _context;
+        private readonly learningGateDbContext _context;
         // private readonly ILocationService _locationService;
 
         public AccountController(UserManager<Employee> userManager,
             SignInManager<Employee> signInManager,
-            ssDbContext context
+            learningGateDbContext context
         )
         {
             _context = context;

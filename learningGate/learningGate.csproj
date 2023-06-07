@@ -8,4 +8,22 @@
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+  <ItemGroup>
+    <Folder Include="wwwroot\client\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CloudinaryDotNet" Version="1.21.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.6" />
+    <PackageReference Include="MySql.Data" Version="8.0.33" />
+    <PackageReference Include="MySql.Data.EntityFramework" Version="8.0.33" />
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.2" />
+  </ItemGroup>
 </Project>

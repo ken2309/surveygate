@@ -1,6 +1,6 @@
 ﻿using CloudinaryDotNet.Actions;
 
-namespace ssSystem.Interfaces
+namespace learningGate.Interfaces
 {
     public interface IPhotoService
     {

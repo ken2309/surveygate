@@ -1,6 +1,6 @@
-﻿using ssSystem.Models;
+﻿using learningGate.Models;
 
-namespace ssSystem.Interfaces
+namespace learningGate.Interfaces
 {
     public interface IUserRepository
     {

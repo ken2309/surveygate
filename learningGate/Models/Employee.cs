@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
-namespace ssSystem.Models;
+namespace learningGate.Models;
 
 public partial class Employee : IdentityUser
 {

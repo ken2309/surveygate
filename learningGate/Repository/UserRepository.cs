@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ssSystem.Interfaces;
-using ssSystem.Data;
-using ssSystem.Models;
+using learningGate.Interfaces;
+using learningGate.Data;
+using learningGate.Models;
 
-namespace ssSystem.Repository
+namespace learningGate.Repository
 {
     public class UserRepository : IUserRepository
     {
-        private readonly ssDbContext _context;
+        private readonly learningGateDbContext _context;
 
-        public UserRepository(ssDbContext context)
+        public UserRepository(learningGateDbContext context)
         {
             _context = context;
         }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ssSystem.ViewModels
+namespace learningGate.ViewModels
 {
     public class LoginViewModel
     {

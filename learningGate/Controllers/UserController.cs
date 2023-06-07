@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using ssSystem.Data;
-using ssSystem.Interfaces;
-using ssSystem.ViewModels;
-using ssSystem.Models;
+using learningGate.Data;
+using learningGate.Interfaces;
+using learningGate.ViewModels;
+using learningGate.Models;
 
-namespace ssSystem.Controllers
+namespace learningGate.Controllers
 {
     public class UserController : Controller
     {

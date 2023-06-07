@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace ssSystem.Extensions;
+namespace learningGate.Extensions;
 
 public static class HtmlExtentions
 {

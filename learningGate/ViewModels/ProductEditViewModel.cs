@@ -1,6 +1,6 @@
-using ssSystem.Models;
+using learningGate.Models;
 
-namespace ssSystem.ViewModels;
+namespace learningGate.ViewModels;
 
 public class ProductEditViewModel
 {
@@ -26,9 +26,9 @@ public class ProductEditViewModel
 
     public List<Image>? Images { get; set; } = new List<Image>();
 
-    public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
+    // public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
 
-    public virtual ICollection<Invoicedetail> Invoicedetails { get; set; } = new List<Invoicedetail>();
+    // public virtual ICollection<Invoicedetail> Invoicedetails { get; set; } = new List<Invoicedetail>();
 
     public virtual Producttype? ProductType { get; set; }
 }

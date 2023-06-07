@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ssSystem.Data;
-using ssSystem.Models;
-using ssSystem.ViewModels;
+using learningGate.Data;
+using learningGate.Models;
+using learningGate.ViewModels;
 
-namespace ssSystem.Controllers
+namespace learningGate.Controllers
 {
     public class ViewProductsController : Controller
     {
-        private readonly ssDbContext _context;
+        private readonly learningGateDbContext _context;
 
-        public ViewProductsController(ssDbContext context)
+        public ViewProductsController(learningGateDbContext context)
         {
             _context = context;
         }
@@ -24,7 +24,7 @@ namespace ssSystem.Controllers
         
         public async Task<IActionResult> Index()
         {
-            var ssDbContext = _context.Products.Include(p => p.Images).Include(p => p.ProductType);
+            var learningGateDbContext = _context.Products.Include(p => p.Images).Include(p => p.ProductType);
             return View();
         }
 
@@ -168,7 +168,7 @@ namespace ssSystem.Controllers
         {
             if (_context.Products == null)
             {
-                return Problem("Entity set 'ssDbContext.Products'  is null.");
+                return Problem("Entity set 'learningGateDbContext.Products'  is null.");
             }
             var product = await _context.Products.FindAsync(id);
             if (product != null)

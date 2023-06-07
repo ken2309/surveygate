@@ -5,16 +5,16 @@ using learningGate.Models;
 
 namespace learningGate.Data;
 
-public class ssDbContext : IdentityDbContext<Employee>
+public class learningGateDbContext : IdentityDbContext<Employee>
 {
     public string ConnectionString { get; set; }
 
-    public ssDbContext(string connectionString)
+    public learningGateDbContext(string connectionString)
     {
         this.ConnectionString = connectionString;
     }
 
-    public ssDbContext(DbContextOptions<ssDbContext> options)
+    public learningGateDbContext(DbContextOptions<learningGateDbContext> options)
         : base(options)
     {
     }
@@ -23,7 +23,7 @@ public class ssDbContext : IdentityDbContext<Employee>
     {
         return new MySqlConnection(ConnectionString);
     }
-    public DbSet<Customer> Customers { get; set; }
+    public DbSet<Student> Customers { get; set; }
     public DbSet<Employee> Employees { get; set; }
     public DbSet<Image> Images { get; set; }
     public DbSet<Product> Products { get; set; }

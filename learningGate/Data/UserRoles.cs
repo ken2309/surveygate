@@ -1,4 +1,4 @@
-namespace ssSystem.Data;
+namespace learningGate.Data;
 
 public class UserRoles
 {

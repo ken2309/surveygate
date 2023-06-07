@@ -1,4 +1,4 @@
-﻿namespace ssSystem.Helpers
+﻿namespace learningGate.Helpers
 {
     public class CloudinarySettings
     {

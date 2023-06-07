@@ -1,10 +1,10 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.Extensions.Options;
-using ssSystem.Helpers;
-using ssSystem.Interfaces;
+using learningGate.Helpers;
+using learningGate.Interfaces;
 
-namespace ssSystem.Services
+namespace learningGate.Services
 {
     public class PhotoService : IPhotoService
     {

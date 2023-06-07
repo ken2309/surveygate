@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ssSystem.Views.Dashboard;
+namespace learningGate.Views.Dashboard;
 
 public class Login : PageModel
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ssSystem.Models;
+namespace learningGate.Models;
 
 public partial class Image
 {

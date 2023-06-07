@@ -1,17 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ssSystem.Interfaces;
-using ssSystem.Data;
-using ssSystem.Models;
-using ssSystem.Data;
+using learningGate.Interfaces;
+using learningGate.Data;
+using learningGate.Models;
+using learningGate.Data;
 
-namespace ssSystem.Repository
+namespace learningGate.Repository
 {
     public class DashboardRepository : IDashboardRepository
     {
-        private readonly ssDbContext _context;
+        private readonly learningGateDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DashboardRepository(ssDbContext context, IHttpContextAccessor httpContextAccessor)
+        public DashboardRepository(learningGateDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
@@ -22,7 +22,7 @@ namespace ssSystem.Repository
             throw new NotImplementedException();
         }
 
-        public Task<List<Customer>> GetAllUserClubs()
+        public Task<List<Student>> GetAllUserClubs()
         {
             throw new NotImplementedException();
         }

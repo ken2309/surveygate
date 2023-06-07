@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using ssSystem.Data;
-using ssSystem.ViewModels;
-using ssSystem.Models;
+using learningGate.Data;
+using learningGate.ViewModels;
+using learningGate.Models;
 
-namespace ssSystem.Controllers
+namespace learningGate.Controllers
 {
     public class DashboardController : Controller
     {

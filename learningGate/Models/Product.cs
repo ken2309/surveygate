@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using ssSystem.ViewModels;
+using learningGate.Models;
 
-namespace ssSystem.Models;
+namespace learningGate.Models;
 
 public partial class Product
 {
@@ -25,11 +25,7 @@ public partial class Product
 
     public bool Status { get; set; }
 
-    public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
-
     public virtual List<Image>? Images { get; set; } = new List<Image>();
-
-    public virtual ICollection<Invoicedetail> Invoicedetails { get; set; } = new List<Invoicedetail>();
 
     public virtual Producttype? ProductType { get; set; }
 }

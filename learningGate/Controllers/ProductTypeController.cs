@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ssSystem.Data;
-using ssSystem.Models;
+using learningGate.Data;
+using learningGate.Models;
 
-namespace ssSystem.Views
+namespace learningGate.Views
 {
     public class ProductTypeController : Controller
     {
-        private readonly ssDbContext _context;
+        private readonly learningGateDbContext _context;
 
-        public ProductTypeController(ssDbContext context)
+        public ProductTypeController(learningGateDbContext context)
         {
             _context = context;
         }
@@ -24,7 +24,7 @@ namespace ssSystem.Views
         {
               return _context.ProductTypes != null ? 
                           View(await _context.ProductTypes.ToListAsync()) :
-                          Problem("Entity set 'ssDbContext.ProductTypes'  is null.");
+                          Problem("Entity set 'learningGateDbContext.ProductTypes'  is null.");
         }
 
         // GET: ProductType/Details/5
@@ -143,7 +143,7 @@ namespace ssSystem.Views
         {
             if (_context.ProductTypes == null)
             {
-                return Problem("Entity set 'ssDbContext.ProductTypes'  is null.");
+                return Problem("Entity set 'learningGateDbContext.ProductTypes'  is null.");
             }
             var producttype = await _context.ProductTypes.FindAsync(id);
             if (producttype != null)

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
-using ssSystem.Models;
+using learningGate.Models;
 
-namespace ssSystem.Data;
+namespace learningGate.Data;
 
 public class Seed
 {
@@ -23,9 +23,9 @@ public class Seed
 
             //Users
             var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<Employee>>();
-            
+
             string adminUserEmail = "admin@gmail.com";
-            
+
             var adminUser = await userManager.FindByEmailAsync(adminUserEmail);
             if (adminUser == null)
             {
@@ -40,9 +40,9 @@ public class Seed
                 await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
                 Console.Write(userManager);
             }
-            
+
             string EmployeeEmail = "employee@gmail.com";
-            
+
             var Employee = await userManager.FindByEmailAsync(EmployeeEmail);
             Console.WriteLine("Employee ============ ");
             if (Employee == null)
@@ -60,9 +60,9 @@ public class Seed
                 await userManager.CreateAsync(newEmployee, "Admin@1234?");
                 await userManager.AddToRoleAsync(newEmployee, UserRoles.Employee);
             }
-            
+
             string UserEmail = "user@gmail.com";
-            
+
             var User = await userManager.FindByEmailAsync(UserEmail);
             if (User == null)
             {
@@ -76,9 +76,9 @@ public class Seed
                 await userManager.CreateAsync(newUser, "Admin@1234?");
                 await userManager.AddToRoleAsync(newUser, UserRoles.User);
             }
-            
+
             string Email = "dev@gmail.com";
-            
+
             var Super = await userManager.FindByEmailAsync(Email);
             if (Super == null)
             {
@@ -95,82 +95,4 @@ public class Seed
         }
     }
 
-    public static void SeedData(IApplicationBuilder applicationBuilder)
-    {
-        using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
-        {
-            var context = serviceScope.ServiceProvider.GetService<ssDbContext>();
-
-            context.Database.EnsureCreated();
-            if (context.Products.Any())
-            {
-                context.Products.AddRange(new List<Product>()
-                {
-                    new Product()
-                    {
-                        Name = "Product 1",
-                        Description = "This is the description of the first cinema",
-                        Stock = 20,
-                        Price = 2000000,
-                        IsSerivce = false,
-                        ProductType = new Producttype()
-                        {
-                            Name = "Product Type 1",
-                            Descrition = "This is Description 1",
-                            Status = true
-                        },
-                        Status = true
-                    },
-                    new Product()
-                    {
-                        Name = "Product 2",
-                        Description = "This is the description of the first cinema",
-                        Stock = 20,
-                        Price = 2000000,
-                        IsSerivce = false,
-                        ProductType = new Producttype()
-                        {
-                            Name = "Product Type 1",
-                            Descrition = "This is Description 1",
-                            Status = true
-                        },
-                        Status = true
-                    },
-                    new Product()
-                    {
-                        Name = "Product 3",
-                        Description = "This is the description of the first cinema",
-                        Stock = 20,
-                        Price = 2000000,
-                        IsSerivce = false,
-                        ProductType = new Producttype()
-                        {
-                            Name = "Product Type 1",
-                            Descrition = "This is Description 1",
-                            Status = true
-                        },
-                        Status = true
-                    },
-                    new Product()
-                    {
-                        Name = "Product 4",
-                        Description = "This is the description of the first cinema",
-                        Stock = 20,
-                        Price = 2000000,
-                        IsSerivce = false,
-                        ProductType = new Producttype()
-                        {
-                            Name = "Product Type 1",
-                            Descrition = "This is Description 1",
-                            Status = true
-                        },
-                        Status = true
-                    }
-                });
-                context.SaveChanges();
-            }
-
-            context.SaveChanges();
-        }
-    }
 }
