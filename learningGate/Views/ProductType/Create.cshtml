@@ -1,0 +1,56 @@
+@model ssSystem.Models.Producttype
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Producttype</h4>
+<hr/>
+<div class="card">
+    <div class="card-body">
+        <h1>Edit</h1>
+        <h5 class="card-title fw-semibold mb-4">Producttype</h5>
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id"/>
+                    <div class="mb-3 form-group">
+                        <label asp-for="Name" class="form-label"></label>
+                        <input asp-for="Name" class="form-control" aria-describedby="emailHelp"/>
+                        <span asp-validation-for="Name" class="text-danger form-text"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Descrition" class="control-label form-label"></label>
+                        <input asp-for="Descrition" class="form-control"/>
+                        <span asp-validation-for="Descrition" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Status" class="form-label"></label>
+                        <select asp-for="Status" class="form-select">
+                            <option value="true">true</option>
+                            <option value="false">false</option>
+                        </select>
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                    <button type="submit" value="Save" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="link- link-info mt-5">
+    <a asp-action="Index">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M5 12l14 0"></path>
+            <path d="M5 12l6 6"></path>
+            <path d="M5 12l6 -6"></path>
+        </svg> Back to List
+    </a>
+</div>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1705.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "learningGate", "learningGate\learningGate.csproj", "{9D7F8A79-FD57-4A10-864D-AACFA5C93179}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D7F8A79-FD57-4A10-864D-AACFA5C93179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D7F8A79-FD57-4A10-864D-AACFA5C93179}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D7F8A79-FD57-4A10-864D-AACFA5C93179}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D7F8A79-FD57-4A10-864D-AACFA5C93179}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {596AB08E-3BF7-47E9-9591-85468FC0D944}
+	EndGlobalSection
+EndGlobal

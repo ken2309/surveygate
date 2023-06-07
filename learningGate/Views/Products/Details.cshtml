@@ -1,0 +1,178 @@
+@model ssSystem.ViewModels.ProductDetailViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section Links{
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="~/client/css/bootstrap.min.css"/>
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" href="~/client/css/slick.css"/>
+    <link type="text/css" rel="stylesheet" href="~/client/css/slick-theme.css"/>
+
+    <!-- nouislider -->
+    <link type="text/css" rel="stylesheet" href="~/client/css/nouislider.min.css"/>
+
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="~/client/css/font-awesome.min.css">
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="~/client/css/style.css"/>
+}
+
+@section Scripts {
+    <script src="~/client/js/bootstrap.min.js"></script>
+    <script src="~/client/js/slick.min.js"></script>
+    <script src="~/client/js/nouislider.min.js"></script>
+    <script src="~/client/js/jquery.zoom.min.js"></script>
+    <script src="~/client/js/main.js"></script>
+}
+
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title fw-semibold mb-4"> Product</h1>
+        <!-- row -->
+        <div class="row">
+            <!-- Product main img -->
+            <div class="col-md-5 col-md-push-2">
+                <div id="product-main-img">
+                    @foreach (var i in Model.Images)
+                    {
+                        <div class="product-preview">
+                            <img src="@i.ImageCloud" alt="@i.ImageCloud">
+                        </div>
+                    }
+                </div>
+            </div>
+            <!-- /Product main img -->
+
+            <!-- Product thumb imgs -->
+            <div class="col-md-2  col-md-pull-5">
+                <div id="product-imgs">
+                    @foreach (var i in Model.Images)
+                    {
+                        <div class="product-preview">
+                            <img src="@i.ImageCloud" alt="@i.ImageCloud">
+                        </div>
+                    }
+                </div>
+            </div>
+            <!-- /Product thumb imgs -->
+
+            <!-- Product details -->
+            <div class="col-md-5">
+                <div class="product-details">
+                    <h2 class="product-name">@Model.Name</h2>
+                    <div>
+                        <div class="product-rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                        </div>
+                        <a class="review-link" href="#">10 Review(s) | Add your review</a>
+                    </div>
+                    <div>
+                        <h3 class="product-price">
+                            $@Model.Price.ToString()
+                            <del class="product-old-price">
+                                @{ var salePrice = Model.Price + 200; }
+                                $@salePrice.ToString()
+                            </del>
+                        </h3>
+                        <span class="product-available">
+                            @(Model.Stock > 0 ? "In Stock" : "Out of Stock")
+                        </span>
+                        <span class="product-available">
+                            Stock: @Model.Stock
+                        </span>
+                    </div>
+                    @Html.Raw(Model.ShortDescription)
+
+
+                    <ul class="product-btns">
+                        <li>
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary m-1">
+                                Edit
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger m-1">
+                                Delete
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="product-links">
+                        <li>Category:</li>
+                        <li>
+                            <a asp-action="Details" asp-route-id="@Model.ProductType.Id" asp-controller="ProductType">@Model.ProductType.Name</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <!-- /Product details -->
+
+            <!-- Product tab -->
+            <div class="col-md-12">
+                <div id="product-tab">
+                    <!-- product tab nav -->
+                    <ul class="tab-nav">
+                        <li class="active">
+                            <a data-toggle="tab" href="#tab1">Description</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#tab2">Details</a>
+                        </li>
+                    </ul>
+                    <!-- /product tab nav -->
+
+                    <!-- product tab content -->
+                    <div class="tab-content">
+                        <!-- tab1  -->
+                        <div id="tab1" class="tab-pane fade in active">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @Html.Raw(Model.Description)
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /tab1  -->
+
+                        <!-- tab2  -->
+                        <div id="tab2" class="tab-pane fade in">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @Html.Raw(Model.ShortDescription)
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /tab2  -->
+
+                    </div>
+                    <!-- /product tab content  -->
+                </div>
+            </div>
+            <!-- /product tab -->
+        </div>
+        <!-- /row -->
+        <div class="link- link-info mt-5">
+
+            <a asp-action="Index" class="btn btn-outline-secondary m-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M5 12l14 0"></path>
+                    <path d="M5 12l6 6"></path>
+                    <path d="M5 12l6 -6"></path>
+                </svg> Back to List
+            </a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary m-1">
+                Edit
+            </a>
+        </div>
+    </div>
+</div>
