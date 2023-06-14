@@ -29,7 +29,7 @@ namespace learningGate.Controllers
         }
 
         // GET: ViewProducts/Details/5
-        [Route("products/{productName}/{id}")]
+        [Route("san-pham/{productName}/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Products == null)
