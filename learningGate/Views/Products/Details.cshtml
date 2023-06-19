@@ -30,6 +30,18 @@
     <script src="~/client/js/main.js"></script>
 }
 
+<header class="site-header d-flex flex-column justify-content-center align-items-center">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-12 col-12 text-center">
+
+                <h2 class="mb-0">Detail Page</h2>
+            </div>
+
+        </div>
+    </div>
+</header>
 <div class="card">
     <div class="card-body">
         <h1 class="card-title fw-semibold mb-4"> Product</h1>
@@ -134,7 +146,7 @@
                     <!-- product tab content -->
                     <div class="tab-content">
                         <!-- tab1  -->
-                        <div id="tab1" class="tab-pane fade in active">
+                        <div id="tab1" class="tab-pane fade in show active">
                             <div class="row">
                                 <div class="col-md-12">
                                     @Html.Raw(Model.Description)
@@ -144,7 +156,7 @@
                         <!-- /tab1  -->
 
                         <!-- tab2  -->
-                        <div id="tab2" class="tab-pane fade in">
+                        <div id="tab2" class="tab-pane fade in show">
                             <div class="row">
                                 <div class="col-md-12">
                                     @Html.Raw(Model.ShortDescription)

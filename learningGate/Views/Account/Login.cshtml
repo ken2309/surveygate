@@ -5,10 +5,22 @@
     ViewData["Title"] = "Login";
     Layout = "_LayoutLogin";
 }
+<header class="site-header d-flex flex-column justify-content-center align-items-center">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-12 col-12 text-center">
+
+                <h2 class="mb-0">Log in to your account</h2>
+            </div>
+
+        </div>
+    </div>
+</header>
 <div class="container">
     <div class="col-md-6 offset-3 float-none">
         <p>
-            <h4>Log in to your account</h4>
+            <h4>Log in</h4>
         </p>
         @if(TempData["Error"] != null)
         {

@@ -1,8 +1,10 @@
-﻿@{
+﻿@using learningGate.Models
+@using learningGate.Extensions
+
+@{
     ViewData["Title"] = "Home Page";
     Layout = "_Layout";
 }
-
 
 
 <section class="hero-section">
@@ -204,8 +206,11 @@
                     <div class="">
                         <div class="custom-block-icon-wrap">
                             <div class="section-overlay"></div>
-                            <a href="detail-page.html" class="custom-block-image-wrap">
-                                <img src="~/client/images/podcast/11683425_4790593.jpg"
+                            @{
+                                var slug = Model.Products[0].Name + "".GenerateSlug();
+                            }
+                            <a href="/san-pham/@slug/@Model.Products[0].Id" class="custom-block-image-wrap">
+                                <img src="@Model.Products[0].Images[0].ImageCloud"
                                      class="custom-block-image img-fluid" alt="">
 
                                 <a href="#" class="custom-block-icon">
@@ -222,18 +227,18 @@
                     </div>
 
                     <div class="custom-block-info">
-                        <div class="custom-block-top d-flex mb-1">
-                            <small class="me-4">
-                                <i class="bi-clock-fill custom-icon"></i>
-                                50 Minutes
-                            </small>
-
-                            <small>Episode <span class="badge">15</span></small>
-                        </div>
+                        @* <div class="custom-block-top d-flex mb-1"> *@
+                        @*     <small class="me-4"> *@
+                        @*         <i class="bi-clock-fill custom-icon"></i> *@
+                        @*         50 Minutes *@
+                        @*     </small> *@
+                        @* *@
+                        @*     <small>Episode <span class="badge">15</span></small> *@
+                        @* </div> *@
 
                         <h5 class="mb-2">
-                            <a href="detail-page.html">
-                                Modern Vintage
+                            <a href="/san-pham/@slug/@Model.Products[0].Id">
+                                @Model.Products[0].Name
                             </a>
                         </h5>
 
@@ -248,7 +253,7 @@
                             </p>
                         </div>
 
-                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                        <p class="mb-0"> @Model.Products[0].Name</p>
 
                         <div class="custom-block-bottom d-flex justify-content-between mt-3">
                             <a href="#" class="bi-headphones me-1">
