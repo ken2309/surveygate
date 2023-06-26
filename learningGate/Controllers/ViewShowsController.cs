@@ -11,25 +11,45 @@ using learningGate.ViewModels;
 
 namespace learningGate.Controllers
 {
-    public class ViewProductsController : Controller
+    public class ViewShowsController : Controller
     {
         private readonly learningGateDbContext _context;
 
-        public ViewProductsController(learningGateDbContext context)
+        public ViewShowsController(learningGateDbContext context)
         {
             _context = context;
         }
 
         // GET: ViewProducts
-        
+
+        [Route("danh-sach-buoi-hoi-thao/")]
         public async Task<IActionResult> Index()
         {
-            var learningGateDbContext = _context.Products.Include(p => p.Images).Include(p => p.ProductType);
-            return View();
+            var ssDbContext = _context.Products.Include(p => p.ProductType).Include(p => p.Images).Include(p=>p.Carts).ToList();
+            var viewModels = ssDbContext.Where(e => e.IsSerivce).Select(product => new ProductViewModel
+            {
+                ProductId = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                ShortDescription = product.ShortDescription,
+                Price = product.Price,
+                Stock = product.Stock,
+                ProductTypeId = product.ProductTypeId,
+                IsSerivce = product.IsSerivce,
+                Status = product.Status,
+                ProductType = product.ProductType,
+                Images = product.Images.Select(i => new Image()
+                {
+                    ProductId = i.Id,
+                    ImageCloud = i.ImageCloud
+                    // Map other image properties
+                }).ToList()
+            });
+            return View(viewModels);
         }
 
         // GET: ViewProducts/Details/5
-        [Route("san-pham/{productName}/{id}")]
+        [Route("hoi-thao/{productName}/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Products == null)
@@ -168,7 +188,7 @@ namespace learningGate.Controllers
         {
             if (_context.Products == null)
             {
-                return Problem("Entity set 'learningGateDbContext.Products'  is null.");
+                return Problem("Entity set 'ssDbContext.Products'  is null.");
             }
             var product = await _context.Products.FindAsync(id);
             if (product != null)

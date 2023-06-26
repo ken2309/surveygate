@@ -24,6 +24,8 @@ builder.Services.AddDbContext<learningGateDbContext>(options =>
 
 builder.Services.AddIdentity<Employee, IdentityRole>()
     .AddEntityFrameworkStores<learningGateDbContext>().AddDefaultTokenProviders();
+builder.Services.AddTransient<ICartRepository,CartRepository>();
+builder.Services.AddTransient<IFavoriteRepository,FavoriteRepository>();
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

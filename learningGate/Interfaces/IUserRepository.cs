@@ -10,5 +10,7 @@ namespace learningGate.Interfaces
         bool Update(Employee user);
         bool Delete(Employee user);
         bool Save();
+        Task<IEnumerable<Order>> UserOrders();
+
     }
 }

@@ -1,0 +1,70 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using learningGate.Extensions
+@model IEnumerable<learningGate.ViewModels.ProductViewModel>?
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int index = 0;
+}
+@section Scripts {
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            // autoplay: false,
+            autoplay: true,
+            margin: 0,
+            nav: false,
+            dots: true,
+            autoplayHoverPause: true,
+            items: 1,
+            center:false,
+            animate: '',
+            responsive: {
+              0: {
+                items: 1
+              },
+              600: {
+                items: 1
+              },
+              1000: {
+                items: 1
+              }
+            }
+          });
+    </script>
+  <script src="~/client/js/hooks.js" asp-append-version="true" type="text/javascript"></script>
+
+}
+<div class="container-fluid">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          @foreach (var item in Model){
+          <div class="col-md-4">
+            @* <h5 class="card-title fw-semibold mb-4">{@item.Name}</h5> *@
+            <div class="card">
+              <div class="owl-carousel owl-theme">
+                @foreach (var i in item.Images)
+              {
+                  <div class="item">
+                      <img src="@i.ImageCloud" class="d-block w-100 img-fluid img-thumbnail" alt="@item.Name">
+                  </div>
+              }
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">@item.Name</h5>
+                <p class="card-text">@Html.Raw(item.ShortDescription)</p>
+                @{ var slugX = item.Name + "".GenerateSlug(); }
+                <a href="bai-viet/@slugX/@item.ProductId" class="btn btn-primary">Go detail</a>
+                <a type="submit" onclick="addFavorite(@item.ProductId.ToString())" class="btn btn-secondary">Save</a>
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

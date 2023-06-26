@@ -1,0 +1,80 @@
+﻿@model FavoriteCart
+@using learningGate.Extensions
+
+@{
+    ViewData["Title"] = "GetUserFavorite";
+}
+
+@section Links
+{
+    <link rel="stylesheet" href="~/lib/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/lib/owlcarousel/owl.theme.default.min.css">
+}
+
+@section Scripts {
+    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            // autoplay: false,
+            autoplay: true,
+            margin: 0,
+            nav: false,
+            dots: true,
+            autoplayHoverPause: true,
+            items: 1,
+            center:false,
+            animate: '',
+            responsive: {
+              0: {
+                items: 1
+              },
+              600: {
+                items: 1
+              },
+              1000: {
+                items: 1
+              }
+            }
+          });
+    </script>
+}
+
+<div class="container-fluid">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+        @if (Model != null && Model.FavoriteDetails != null && Model.FavoriteDetails.Count > 0){
+            @foreach (var item in Model.FavoriteDetails){
+                <div class="col-md-4">
+                    @* <h5 class="card-title fw-semibold mb-4">{@item.Name}</h5> *@
+                    <div class="card">
+                    <div class="owl-carousel owl-theme">
+                        @foreach (var i in item.Product.Images)
+                    {
+                        <div class="item">
+                            <img src="@i.ImageCloud" class="d-block w-100 img-fluid img-thumbnail" alt="@item.Product.Name">
+                        </div>
+                    }
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Product.Name</h5>
+                        <p class="card-text">@Html.Raw(item.Product.ShortDescription)</p>
+                            @{ var slugX = item.Product.Name + "".GenerateSlug(); }
+                        <a href="bai-viet/@slugX/@item.ProductId" class="btn btn-primary">Go detail</a>
+                    </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <h5>Favorite list is empty</h5>
+        }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,7 @@ public class ProductViewModel
 
     // Other product properties
     public string? Name { get; set; }
+    public string? AuthorName { get; set; }
 
     public string? Description { get; set; }
 
@@ -28,9 +29,9 @@ public class ProductViewModel
 
     public List<Product>? relatedProducts { get; set; }
 
-    // public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
+    public virtual ICollection<CartDetail> CartDetails { get; set; } = new List<CartDetail>();
 
-    // public virtual ICollection<Invoicedetail> Invoicedetails { get; set; } = new List<Invoicedetail>();
+    public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
     public virtual Producttype? ProductType { get; set; }
     public List<Image> Images { get; set; }
