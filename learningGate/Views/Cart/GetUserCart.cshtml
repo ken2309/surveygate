@@ -80,7 +80,7 @@
                         <td>@(item.Product.Price.Value * item.Quantity)</td>
                         <td>
                             <a class="btn btn-outline-primary qty-up" href="/Cart/AddItem?productId=@item.ProductId.ToString()&&redirect=1">+</a>
-                            <a class="btn btn-primary qty-down" href="/cart/removeitem?productId=@item.ProductId.ToString()">-</a>
+                            <a class="btn btn-primary qty-down" href="/cart/RemoveItem?productId=@item.ProductId.ToString()">-</a>
                         </td>
                     </tr>
                 }

@@ -21,9 +21,10 @@ namespace learningGate.Controllers
             return RedirectToAction("GetUserCart");
         }
 
-        public async Task<IActionResult> RemoveItem(int bookId, Boolean? isRemove)
+        public async Task<IActionResult> RemoveItem(int productId, Boolean? isRemove)
         {
-            var cartCount = await _cartRepo.RemoveItem(bookId,isRemove);
+            isRemove = isRemove == null ? false : isRemove;
+            var cartCount = await _cartRepo.RemoveItem(productId, isRemove);
             return RedirectToAction("GetUserCart");
         }
         public async Task<IActionResult> GetUserCart()
@@ -32,7 +33,7 @@ namespace learningGate.Controllers
             return View(cart);
         }
 
-        public  async Task<IActionResult> GetTotalItemInCart()
+        public async Task<IActionResult> GetTotalItemInCart()
         {
             int cartItem = await _cartRepo.GetCartItemCount();
             return Ok(cartItem);

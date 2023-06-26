@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace learningGate.Migrations
 {
     /// <inheritdoc />
-    public partial class InitailMigration_refactor3 : Migration
+    public partial class InitailMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

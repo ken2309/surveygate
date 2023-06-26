@@ -83,7 +83,7 @@ namespace learningGate.Repository
                                   .FirstOrDefault(a => a.ShoppingCartId == cart.Id && a.ProductId == productId);
                 if (cartItem is null)
                     throw new Exception("Not items in cart");
-                else if (cartItem.Quantity == 1 || isRemove.Value)
+                else if (cartItem.Quantity == 1 || isRemove == null || isRemove.Value)
                     _db.CartDetails.Remove(cartItem);
                 else
                     cartItem.Quantity = cartItem.Quantity - 1;

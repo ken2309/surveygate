@@ -5,7 +5,7 @@
 namespace learningGate.Migrations
 {
     /// <inheritdoc />
-    public partial class InitailMigration_refactor4 : Migration
+    public partial class InitailMigration4 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

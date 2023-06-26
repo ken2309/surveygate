@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using learningGate.Data;
 
@@ -10,9 +11,11 @@ using learningGate.Data;
 namespace learningGate.Migrations
 {
     [DbContext(typeof(learningGateDbContext))]
-    partial class learningGateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230626023453_InitailMigration")]
+    partial class InitailMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -301,7 +304,10 @@ namespace learningGate.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Quantity")
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShoppingCartId")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("UnitPrice")
@@ -373,7 +379,7 @@ namespace learningGate.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Quantity")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("UnitPrice")
@@ -602,7 +608,7 @@ namespace learningGate.Migrations
                         .IsRequired();
 
                     b.HasOne("learningGate.Models.Product", "Product")
-                        .WithMany("FavoriteDetails")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -677,8 +683,6 @@ namespace learningGate.Migrations
             modelBuilder.Entity("learningGate.Models.Product", b =>
                 {
                     b.Navigation("Carts");
-
-                    b.Navigation("FavoriteDetails");
 
                     b.Navigation("Images");
 
