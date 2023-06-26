@@ -1,0 +1,168 @@
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<learningGate.Models.Order>
+@inject SignInManager<Employee> SignInManager
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    
+}
+
+@section Links
+{
+    <link rel="stylesheet" href="~/lib/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/lib/owlcarousel/owl.theme.default.min.css">
+}
+
+@section Scripts {
+    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            // autoplay: false,
+            autoplay: true,
+            margin: 0,
+            nav: false,
+            dots: true,
+            autoplayHoverPause: true,
+            items: 1,
+            center:false,
+            animate: '',
+            responsive: {
+              0: {
+                items: 1
+              },
+              600: {
+                items: 1
+              },
+              1000: {
+                items: 1
+              }
+            }
+          });
+    </script>
+}
+
+<h1>Index</h1>
+
+@* <p> *@
+@*     <a asp-action="Create">Create New</a> *@
+@* </p> *@
+<table class="table">
+    <thead>
+    <tr>
+         <th>Order ID</th>
+        <th>
+            User name
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderStatus)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                 @item.Id.ToString()
+            </td>
+            <td>
+                @item.UserId
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderStatus.StatusName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                @* | *@
+                @* <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> *@
+            </td>
+        </tr>
+        @if (item.OrderDetail != null && item.OrderDetail.Count > 0)
+        {
+            <tr>
+                <td>Order Detail</td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="table table-striped">
+
+                        <tr>
+                            <th>Image</th>
+                            <th>Product</th>
+                            <th>Type</th>
+                            <th>Unit Price(INR)</th>
+                            <th>Total Price</th>
+                        </tr>
+                        @foreach (var ix in item.OrderDetail)
+                        {
+                            <tr>
+                                <td>
+                                    @if (ix.Product.Images.Count <= 0)
+                                    {
+                                        <img src="~/client/img/NoImage.png" style="width:80px;height:100px"/>
+                                    }
+                                    else
+                                    {
+                                        <div class="owl-carousel owl-theme w-100" style="max-width: 80px !important;">
+                                            @foreach (var i in ix.Product.Images)
+                                            {
+                                                <div class="item">
+                                                    <img src="@i.ImageCloud" class="d-block w-100 img-fluid img-thumbnail" alt="@i.Product.Name">
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                </td>
+                                <td>@ix.Product.Name</td>
+                                <td>@ix.Product.ProductType.Name</td>
+                                <td>@ix.Product.Price.ToString() X @ix.Quantity.ToString()</td>
+                                <td>@(ix.Product.Price.Value * ix.Quantity)</td>
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan="3"></td>
+                            <td>
+                                Total:
+                            </td>
+                            <td>
+
+                                @{
+                                    decimal? sum = 0;
+                                    foreach (var ixt in item.OrderDetail)
+                                    {
+                                        var @decimal = ixt.Product.Price * ixt.Quantity;
+                                        if (@decimal.HasValue)
+                                        {
+                                            sum += @decimal.Value;
+                                        }
+                                    }
+                                }
+                                @sum
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        }
+    }
+    </tbody>
+
+</table>

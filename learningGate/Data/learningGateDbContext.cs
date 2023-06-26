@@ -28,4 +28,13 @@ public class learningGateDbContext : IdentityDbContext<Employee>
     public DbSet<Image> Images { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Producttype> ProductTypes { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderDetail> OrderDetails { get; set; }
+
+    public DbSet<OrderStatus> orderStatuses { get; set; }
+
+    public DbSet<CartDetail> CartDetails { get; set; }
+    public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+    public DbSet<FavoriteDetail> FavoriteDetails { get; set; }
+    public DbSet<FavoriteCart> FavoriteCarts { get; set; }
 }

@@ -1,0 +1,135 @@
+﻿@using learningGate.ViewModels
+@model IEnumerable<Order>
+@{
+    ViewData["Title"] = "Lưu trữ";
+    Layout = "_layout";
+}
+
+@section Links
+{
+    <link rel="stylesheet" href="~/lib/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/lib/owlcarousel/owl.theme.default.min.css">
+}
+
+@section Scripts {
+    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            // autoplay: false,
+            autoplay: true,
+            margin: 0,
+            nav: false,
+            dots: true,
+            autoplayHoverPause: true,
+            items: 1,
+            center:false,
+            animate: '',
+            responsive: {
+              0: {
+                items: 1
+              },
+              600: {
+                items: 1
+              },
+              1000: {
+                items: 1
+              }
+            }
+          });
+    </script>
+}
+
+<div class="container card">
+    <div style="width:100%" class="mt-2">
+        <a href="/User" class="btn btn-primary my-2">Back</a>
+
+        <h4 class="card-header">My Orders</h4>
+        @if (Model != null && Model.Count() > 0)
+        {
+            <table class="table table-striped card-body">
+                <tr>
+                    <th>OrderDate</th>
+                    <th>OrderStatus</th>
+                </tr>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.CreateDate.ToString("dd-MM-yyyy")</td>
+                        <td>@order.OrderStatus.StatusName</td>
+                    </tr>
+                    @if (order.OrderDetail != null && order.OrderDetail.Count > 0)
+                    {
+                        <tr>
+                            <td>
+                                <table class="table table-striped">
+
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Product</th>
+                                        <th>Type</th>
+                                        <th>Unit Price(INR)</th>
+                                        <th>Total Price</th>
+                                    </tr>
+                                    @foreach (var item in order.OrderDetail)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @if (item.Product.Images.Count <= 0)
+                                                {
+                                                    <img src="~/client/img/NoImage.png" style="width:80px;height:100px"/>
+                                                }
+                                                else
+                                                {
+                                                    <div class="owl-carousel owl-theme w-100" style="max-width: 80px !important;">
+                                                        @foreach (var i in item.Product.Images)
+                                                        {
+                                                            <div class="item">
+                                                                <img src="@i.ImageCloud" class="d-block w-100 img-fluid img-thumbnail" alt="@item.Product.Name">
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                }
+                                            </td>
+                                            <td>@item.Product.Name</td>
+                                            <td>@item.Product.ProductType.Name</td>
+                                            <td>@item.Product.Price.ToString() X @item.Quantity.ToString()</td>
+                                            <td>@(item.Product.Price.Value * item.Quantity)</td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td>
+                                            Total:
+                                        </td>
+                                        <td>
+
+                                            @{
+                                                decimal? sum = 0;
+                                                foreach (var item in order.OrderDetail)
+                                                {
+                                                    var @decimal = item.Product.Price * item.Quantity;
+                                                    if (@decimal.HasValue)
+                                                    {
+                                                        sum += @decimal.Value;
+                                                    }
+                                                }
+                                            }
+                                            @sum
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+        else
+        {
+            <h5>No orders</h5>
+        }
+    </div>
+</div>

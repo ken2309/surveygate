@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace learningGate.Migrations
 {
     /// <inheritdoc />
-    public partial class ChangeImageDbContstructor2 : Migration
+    public partial class InitailMigration_refactor3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -90,6 +90,36 @@ namespace learningGate.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "FavoriteCart",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(type: "longtext", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FavoriteCart", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "OrderStatus",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    StatusId = table.Column<int>(type: "int", nullable: false),
+                    StatusName = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderStatus", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "ProductTypes",
                 columns: table => new
                 {
@@ -102,6 +132,21 @@ namespace learningGate.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductTypes", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "ShoppingCart",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(type: "longtext", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoppingCart", x => x.Id);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -217,12 +262,36 @@ namespace learningGate.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(type: "longtext", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    OrderStatusId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Order_OrderStatus_OrderStatusId",
+                        column: x => x.OrderStatusId,
+                        principalTable: "OrderStatus",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "longtext", nullable: true),
+                    AuthorName = table.Column<string>(type: "longtext", nullable: true),
                     Description = table.Column<string>(type: "longtext", nullable: true),
                     ShortDescription = table.Column<string>(type: "longtext", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
@@ -244,6 +313,65 @@ namespace learningGate.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "CartDetail",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    ShoppingCartId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CartDetail_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CartDetail_ShoppingCart_ShoppingCartId",
+                        column: x => x.ShoppingCartId,
+                        principalTable: "ShoppingCart",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "FavoriteDetail",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    ShoppingCartId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    FavoriteCartId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FavoriteDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FavoriteDetail_FavoriteCart_FavoriteCartId",
+                        column: x => x.FavoriteCartId,
+                        principalTable: "FavoriteCart",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FavoriteDetail_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Images",
                 columns: table => new
                 {
@@ -257,6 +385,35 @@ namespace learningGate.Migrations
                     table.PrimaryKey("PK_Images", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Images_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "OrderDetail",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderDetail_Order_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Order",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderDetail_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -302,8 +459,43 @@ namespace learningGate.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_CartDetail_ProductId",
+                table: "CartDetail",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartDetail_ShoppingCartId",
+                table: "CartDetail",
+                column: "ShoppingCartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FavoriteDetail_FavoriteCartId",
+                table: "FavoriteDetail",
+                column: "FavoriteCartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FavoriteDetail_ProductId",
+                table: "FavoriteDetail",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Images_ProductId",
                 table: "Images",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_OrderStatusId",
+                table: "Order",
+                column: "OrderStatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetail_OrderId",
+                table: "OrderDetail",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetail_ProductId",
+                table: "OrderDetail",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
@@ -331,10 +523,19 @@ namespace learningGate.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CartDetail");
+
+            migrationBuilder.DropTable(
                 name: "Customers");
 
             migrationBuilder.DropTable(
+                name: "FavoriteDetail");
+
+            migrationBuilder.DropTable(
                 name: "Images");
+
+            migrationBuilder.DropTable(
+                name: "OrderDetail");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -343,7 +544,19 @@ namespace learningGate.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "ShoppingCart");
+
+            migrationBuilder.DropTable(
+                name: "FavoriteCart");
+
+            migrationBuilder.DropTable(
+                name: "Order");
+
+            migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "OrderStatus");
 
             migrationBuilder.DropTable(
                 name: "ProductTypes");

@@ -3,643 +3,108 @@
 
 @{
     ViewData["Title"] = "Home Page";
-    Layout = "_Layout";
+    Layout = "_layout";
+}
+
+@section Scripts {
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            // autoplay: false,
+            autoplay: true,
+            margin: 0,
+            nav: false,
+            dots: true,
+            autoplayHoverPause: true,
+            items: 1,
+            center:false,
+            animate: '',
+            responsive: {
+              0: {
+                items: 1
+              },
+              600: {
+                items: 1
+              },
+              1000: {
+                items: 1
+              }
+            }
+          });
+    </script>
+  <script src="~/client/js/hooks.js" asp-append-version="true" type="text/javascript"></script>
+
 }
 
 
-<section class="hero-section">
-    <div class="container">
+
+<div class="container-fluid">
+  <div class="container-fluid">
+    <div class="card">
+        <h3 class="fw-semibold m-4">Các buổi hội thảo nổi bật</h3>
+      <div class="card-body">
         <div class="row">
-
-            <div class="col-lg-12 col-12">
-                <div class="text-center mb-5 pb-2">
-                    <h1 class="text-white">Welcome to Survey gate</h1>
-
-                    <p class="text-white">It is survey time. Explore your fav events.</p>
-
-                    <a href="#section_2" class="btn custom-btn smoothscroll mt-3">Start now</a>
-                </div>
-
+          @foreach (var item in Model.Products){
+            @if(item.IsSerivce){
+            <div class="col-md-4">
+              @* <h5 class="card-title fw-semibold mb-4">{@item.Name}</h5> *@
+              <div class="card">
                 <div class="owl-carousel owl-theme">
-                    <div class="owl-carousel-info-wrap item">
-                        <img src="~/client/images/profile/smiling-business-woman-with-folded-hands-against-white-wall-toothy-smile-crossed-arms.jpg"
-                             class="owl-carousel-image img-fluid" alt="">
-
-                        <a style="display: block;" href="./author.html" class="owl-carousel-info">
-                            <h4 class="mb-2">
-                                Candice
-                                <img src="~/client/images/verified.png" class="owl-carousel-verified-image img-fluid"
-                                     alt="">
-                            </h4>
-
-                            <span class="badge">Storytelling</span>
-
-                            <span class="badge">Business</span>
-                        </a>
-
-                        <div class="social-share">
-                            <ul class="social-icon">
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-twitter"></a>
-                                </li>
-
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-facebook"></a>
-                                </li>
-                            </ul>
-                        </div>
+                  @foreach (var i in item.Images)
+                  {
+                    <div class="item">
+                        <img src="@i.ImageCloud" class="d-block w-100 img-fluid img-thumbnail" alt="@item.Name">
                     </div>
-
-                    <div class="owl-carousel-info-wrap item">
-                        <img src="~/client/images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                             class="owl-carousel-image img-fluid" alt="">
-
-                        <a style="display: block;" href="./author.html" class="owl-carousel-info">
-                            <h4 class="mb-2">
-                                William
-                                <img src="~/client/images/verified.png" class="owl-carousel-verified-image img-fluid"
-                                     alt="">
-                            </h4>
-
-                            <span class="badge">Creative</span>
-
-                            <span class="badge">Design</span>
-                        </a>
-
-                        <div class="social-share">
-                            <ul class="social-icon">
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-twitter"></a>
-                                </li>
-
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-facebook"></a>
-                                </li>
-
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-pinterest"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="owl-carousel-info-wrap item">
-                        <img src="~/client/images/profile/cute-smiling-woman-outdoor-portrait.jpg"
-                             class="owl-carousel-image img-fluid" alt="">
-
-                        <a style="display: block;" href="./author.html" class="owl-carousel-info">
-                            <h4 class="mb-2">Taylor</h4>
-
-                            <span class="badge">Modeling</span>
-
-                            <span class="badge">Fashion</span>
-                        </a>
-
-                        <div class="social-share">
-                            <ul class="social-icon">
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-twitter"></a>
-                                </li>
-
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-facebook"></a>
-                                </li>
-
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-pinterest"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="owl-carousel-info-wrap item">
-                        <img src="~/client/images/profile/man-portrait.jpg" class="owl-carousel-image img-fluid" alt="">
-
-                        <a style="display: block;" href="./author.html" class="owl-carousel-info">
-                            <h4 class="mb-2">Nick</h4>
-
-                            <span class="badge">Acting</span>
-                        </a>
-
-                        <div class="social-share">
-                            <ul class="social-icon">
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-instagram"></a>
-                                </li>
-
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-youtube"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="owl-carousel-info-wrap item">
-                        <img src="~/client/images/profile/woman-posing-black-dress-medium-shot.jpg"
-                             class="owl-carousel-image img-fluid" alt="">
-
-                        <a style="display: block;" href="./author.html" class="owl-carousel-info">
-                            <h4 class="mb-2">
-                                Elsa
-                                <img src="~/client/images/verified.png" class="owl-carousel-verified-image img-fluid"
-                                     alt="">
-                            </h4>
-
-                            <span class="badge">Influencer</span>
-                        </a>
-
-                        <div class="social-share">
-                            <ul class="social-icon">
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-instagram"></a>
-                                </li>
-
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-youtube"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="owl-carousel-info-wrap item">
-                        <img src="~/client/images/profile/smart-attractive-asian-glasses-male-standing-smile-with-freshness-joyful-casual-blue-shirt-portrait-white-background.jpg"
-                             class="owl-carousel-image img-fluid" alt="">
-
-                        <a style="display: block;" href="./author.html" class="owl-carousel-info">
-                            <h4 class="mb-2">Chan</h4>
-
-                            <span class="badge">Education</span>
-                        </a>
-
-                        <div class="social-share">
-                            <ul class="social-icon">
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-linkedin"></a>
-                                </li>
-
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-whatsapp"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                  }
                 </div>
+                <div class="card-body">
+                  <h5 class="card-title">@item.Name</h5>
+                  <p class="card-text">@Html.Raw(item.ShortDescription)</p>
+                  @{ var slugX = item.Name + "".GenerateSlug(); }
+                  <a href="hoi-thao/@slugX/@item.Id" class="btn btn-primary">Go detail</a>
+                  <a type="submit" onclick="add(@item.Id.ToString())" class="btn btn-secondary">Add to Cart</a>
+                </div>
+              </div>
             </div>
-
+            }
+          }
         </div>
+      </div>
     </div>
-</section>
-
-
-<section class="latest-podcast-section section-padding pb-0" id="section_2">
-    <div class="container">
-        <div class="row justify-content-center">
-
-            <div class="col-lg-12 col-12">
-                <div class="section-title-wrap mb-5">
-                    <h4 class="section-title">Lastest episodes</h4>
-                </div>
-            </div>
-
-            <div class="col-lg-6 col-12 mb-4 mb-lg-0">
-                <div class="custom-block d-flex">
-                    <div class="">
-                        <div class="custom-block-icon-wrap">
-                            <div class="section-overlay"></div>
-                            @{
-                                var slug = Model.Products[0].Name + "".GenerateSlug();
-                            }
-                            <a href="/san-pham/@slug/@Model.Products[0].Id" class="custom-block-image-wrap">
-                                <img src="@Model.Products[0].Images[0].ImageCloud"
-                                     class="custom-block-image img-fluid" alt="">
-
-                                <a href="#" class="custom-block-icon">
-                                    <i class="bi-play-fill"></i>
-                                </a>
-                            </a>
-                        </div>
-
-                        <div class="mt-2">
-                            <a href="#" class="btn custom-btn">
-                                Subscribe
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="custom-block-info">
-                        @* <div class="custom-block-top d-flex mb-1"> *@
-                        @*     <small class="me-4"> *@
-                        @*         <i class="bi-clock-fill custom-icon"></i> *@
-                        @*         50 Minutes *@
-                        @*     </small> *@
-                        @* *@
-                        @*     <small>Episode <span class="badge">15</span></small> *@
-                        @* </div> *@
-
-                        <h5 class="mb-2">
-                            <a href="/san-pham/@slug/@Model.Products[0].Id">
-                                @Model.Products[0].Name
-                            </a>
-                        </h5>
-
-                        <div class="profile-block d-flex">
-                            <img src="~/client/images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                 class="profile-block-image img-fluid" alt="">
-
-                            <p>
-                                Elsa
-                                <img src="~/client/images/verified.png" class="verified-image img-fluid" alt="">
-                                <strong>Influencer</strong>
-                            </p>
-                        </div>
-
-                        <p class="mb-0"> @Model.Products[0].Name</p>
-
-                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                            <a href="#" class="bi-headphones me-1">
-                                <span>120k</span>
-                            </a>
-
-                            <a href="#" class="bi-heart me-1">
-                                <span>42.5k</span>
-                            </a>
-
-                            <a href="#" class="bi-chat me-1">
-                                <span>11k</span>
-                            </a>
-
-                            <a href="#" class="bi-download">
-                                <span>50k</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="d-flex flex-column ms-auto">
-                        <a href="#" class="badge ms-auto">
-                            <i class="bi-heart"></i>
-                        </a>
-
-                        <a href="#" class="badge ms-auto">
-                            <i class="bi-bookmark"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6 col-12">
-                <div class="custom-block d-flex">
-                    <div class="">
-                        <div class="custom-block-icon-wrap">
-                            <div class="section-overlay"></div>
-                            <a href="detail-page.html" class="custom-block-image-wrap">
-                                <img src="~/client/images/podcast/12577967_02.jpg" class="custom-block-image img-fluid"
-                                     alt="">
-
-                                <a href="#" class="custom-block-icon">
-                                    <i class="bi-play-fill"></i>
-                                </a>
-                            </a>
-                        </div>
-
-                        <div class="mt-2">
-                            <a href="#" class="btn custom-btn">
-                                Subscribe
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="custom-block-info">
-                        <div class="custom-block-top d-flex mb-1">
-                            <small class="me-4">
-                                <i class="bi-clock-fill custom-icon"></i>
-                                15 Minutes
-                            </small>
-
-                            <small>Episode <span class="badge">45</span></small>
-                        </div>
-
-                        <h5 class="mb-2">
-                            <a href="detail-page.html">
-                                Daily Talk
-                            </a>
-                        </h5>
-
-                        <div class="profile-block d-flex">
-                            <img src="~/client/images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                 class="profile-block-image img-fluid" alt="">
-
-                            <p>
-                                William
-                                <strong>Vlogger</strong>
-                            </p>
-                        </div>
-
-                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                            <a href="#" class="bi-headphones me-1">
-                                <span>140k</span>
-                            </a>
-
-                            <a href="#" class="bi-heart me-1">
-                                <span>22.4k</span>
-                            </a>
-
-                            <a href="#" class="bi-chat me-1">
-                                <span>16k</span>
-                            </a>
-
-                            <a href="#" class="bi-download">
-                                <span>62k</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="d-flex flex-column ms-auto">
-                        <a href="#" class="badge ms-auto">
-                            <i class="bi-heart"></i>
-                        </a>
-
-                        <a href="#" class="badge ms-auto">
-                            <i class="bi-bookmark"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-
-<section class="topics-section section-padding pb-0" id="section_3">
-    <div class="container">
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="container-fluid">
+    <div class="card">
+        <h3 class="fw-semibold m-4">Các bài viết nổi bật</h3>
+      <div class="card-body">
         <div class="row">
-
-            <div class="col-lg-12 col-12">
-                <div class="section-title-wrap mb-5">
-                    <h4 class="section-title">Topics</h4>
+          @foreach (var item in Model.Products){
+             @if(!item.IsSerivce){
+              <div class="col-md-4">
+                @* <h5 class="card-title fw-semibold mb-4">{@item.Name}</h5> *@
+                <div class="card">
+                  <div class="owl-carousel owl-theme">
+                    @foreach (var i in item.Images)
+                    {
+                      <div class="item">
+                          <img src="@i.ImageCloud" class="d-block w-100 img-fluid img-thumbnail" alt="@item.Name">
+                      </div>
+                    }
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@Html.Raw(item.ShortDescription)</p>
+                    @{ var slugX = item.Name + "".GenerateSlug(); }
+                    <a href="bai-viet/@slugX/@item.Id" class="btn btn-primary">Go detail</a>
+                    <a type="submit" onclick="addFavorite(@item.Id.ToString())" class="btn btn-secondary">Save</a>
+                  </div>
                 </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                <div class="custom-block custom-block-overlay">
-                    <a href="listing-page.html" class="custom-block-image-wrap">
-                        <img src="~/client/images/topics/physician-consulting-his-patient-clinic.jpg"
-                             class="custom-block-image img-fluid" alt="">
-                    </a>
-
-                    <div class="custom-block-info custom-block-overlay-info">
-                        <h5 class="mb-1">
-                            <a href="listing-page.html">
-                                Productivity
-                            </a>
-                        </h5>
-
-                        <p class="badge mb-0">50 Episodes</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                <div class="custom-block custom-block-overlay">
-                    <a href="listing-page.html" class="custom-block-image-wrap">
-                        <img src="~/client/images/topics/repairman-doing-air-conditioner-service.jpg"
-                             class="custom-block-image img-fluid" alt="">
-                    </a>
-
-                    <div class="custom-block-info custom-block-overlay-info">
-                        <h5 class="mb-1">
-                            <a href="listing-page.html">
-                                Technician
-                            </a>
-                        </h5>
-
-                        <p class="badge mb-0">12 Episodes</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                <div class="custom-block custom-block-overlay">
-                    <a href="listing-page.html" class="custom-block-image-wrap">
-                        <img src="~/client/images/topics/woman-practicing-yoga-mat-home.jpg"
-                             class="custom-block-image img-fluid" alt="">
-                    </a>
-
-                    <div class="custom-block-info custom-block-overlay-info">
-                        <h5 class="mb-1">
-                            <a href="listing-page.html">
-                                Mindfullness
-                            </a>
-                        </h5>
-
-                        <p class="badge mb-0">35 Episodes</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                <div class="custom-block custom-block-overlay">
-                    <a href="listing-page.html" class="custom-block-image-wrap">
-                        <img src="~/client/images/topics/delicious-meal-with-sambal-arrangement.jpg"
-                             class="custom-block-image img-fluid" alt="">
-                    </a>
-
-                    <div class="custom-block-info custom-block-overlay-info">
-                        <h5 class="mb-1">
-                            <a href="listing-page.html">
-                                Cooking
-                            </a>
-                        </h5>
-
-                        <p class="badge mb-0">12 Episodes</p>
-                    </div>
-                </div>
-            </div>
-
+              </div>
+             }
+          }
         </div>
+      </div>
     </div>
-</section>
-
-
-<section class="trending-podcast-section section-padding">
-    <div class="container">
-        <div class="row">
-
-            <div class="col-lg-12 col-12">
-                <div class="section-title-wrap mb-5">
-                    <h4 class="section-title">Trending episodes</h4>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-12 mb-4 mb-lg-0">
-                <div class="custom-block custom-block-full">
-                    <div class="custom-block-image-wrap">
-                        <a href="detail-page.html">
-                            <img src="~/client/images/podcast/27376480_7326766.jpg" class="custom-block-image img-fluid"
-                                 alt="">
-                        </a>
-                    </div>
-
-                    <div class="custom-block-info">
-                        <h5 class="mb-2">
-                            <a href="detail-page.html">
-                                Vintage Show
-                            </a>
-                        </h5>
-
-                        <div class="profile-block d-flex">
-                            <img src="~/client/images/profile/woman-posing-black-dress-medium-shot.jpg"
-                                 class="profile-block-image img-fluid" alt="">
-
-                            <p>
-                                Elsa
-                                <strong>Influencer</strong>
-                            </p>
-                        </div>
-
-                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                            <a href="#" class="bi-headphones me-1">
-                                <span>100k</span>
-                            </a>
-
-                            <a href="#" class="bi-heart me-1">
-                                <span>2.5k</span>
-                            </a>
-
-                            <a href="#" class="bi-chat me-1">
-                                <span>924k</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="social-share d-flex flex-column ms-auto">
-                        <a href="#" class="badge ms-auto">
-                            <i class="bi-heart"></i>
-                        </a>
-
-                        <a href="#" class="badge ms-auto">
-                            <i class="bi-bookmark"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-12 mb-4 mb-lg-0">
-                <div class="custom-block custom-block-full">
-                    <div class="custom-block-image-wrap">
-                        <a href="detail-page.html">
-                            <img src="~/client/images/podcast/27670664_7369753.jpg" class="custom-block-image img-fluid"
-                                 alt="">
-                        </a>
-                    </div>
-
-                    <div class="custom-block-info">
-                        <h5 class="mb-2">
-                            <a href="detail-page.html">
-                                Vintage Show
-                            </a>
-                        </h5>
-
-                        <div class="profile-block d-flex">
-                            <img src="~/client/images/profile/cute-smiling-woman-outdoor-portrait.jpg"
-                                 class="profile-block-image img-fluid" alt="">
-
-                            <p>
-                                Taylor
-                                <img src="~/client/images/verified.png" class="verified-image img-fluid" alt="">
-                                <strong>Creator</strong>
-                            </p>
-                        </div>
-
-                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                            <a href="#" class="bi-headphones me-1">
-                                <span>100k</span>
-                            </a>
-
-                            <a href="#" class="bi-heart me-1">
-                                <span>2.5k</span>
-                            </a>
-
-                            <a href="#" class="bi-chat me-1">
-                                <span>924k</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="social-share d-flex flex-column ms-auto">
-                        <a href="#" class="badge ms-auto">
-                            <i class="bi-heart"></i>
-                        </a>
-
-                        <a href="#" class="badge ms-auto">
-                            <i class="bi-bookmark"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-12">
-                <div class="custom-block custom-block-full">
-                    <div class="custom-block-image-wrap">
-                        <a href="detail-page.html">
-                            <img src="~/client/images/podcast/12577967_02.jpg" class="custom-block-image img-fluid"
-                                 alt="">
-                        </a>
-                    </div>
-
-                    <div class="custom-block-info">
-                        <h5 class="mb-2">
-                            <a href="detail-page.html">
-                                Daily Talk
-                            </a>
-                        </h5>
-
-                        <div class="profile-block d-flex">
-                            <img src="~/client/images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
-                                 class="profile-block-image img-fluid" alt="">
-
-                            <p>
-                                William
-                                <img src="~/client/images/verified.png" class="verified-image img-fluid" alt="">
-                                <strong>Vlogger</strong>
-                            </p>
-                        </div>
-
-                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-
-                        <div class="custom-block-bottom d-flex justify-content-between mt-3">
-                            <a href="#" class="bi-headphones me-1">
-                                <span>100k</span>
-                            </a>
-
-                            <a href="#" class="bi-heart me-1">
-                                <span>2.5k</span>
-                            </a>
-
-                            <a href="#" class="bi-chat me-1">
-                                <span>924k</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="social-share d-flex flex-column ms-auto">
-                        <a href="#" class="badge ms-auto">
-                            <i class="bi-heart"></i>
-                        </a>
-
-                        <a href="#" class="badge ms-auto">
-                            <i class="bi-bookmark"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
+  </div>
+</div>

@@ -1,229 +1,205 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<Employee> SignInManager
 @inject UserManager<Employee> UserManager
-<!doctype html>
-<html lang="en">
 
+@{
+    if(User.Identity.IsAuthenticated){
+    var currentUser = await UserManager.GetUserAsync(User);
+    var isInRole = await UserManager.IsInRoleAsync(currentUser, "Admin");
+    }
+}
+
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"]</title>
+    <link rel="shortcut icon" type="image/png" href="~/assets/admin/images/logos/logo.png"/>
+    <link rel="stylesheet" href="~/admin/assets/css/styles.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/admin/assets/css/ckCustom.css" asp-append-version="true"/>
 
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Survey Gate</title>
-
-    <!-- CSS FILES -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="~/client/css/bootstrap.min.css">
-
-    <link rel="stylesheet" href="~/client/css/bootstrap-icons.css">
-
-    <link rel="stylesheet" href="~/client/css/owl.carousel.min.css">
-
-    <link rel="stylesheet" href="~/client/css/owl.theme.default.min.css">
-
-    <link href="~/client/css/templatemo-pod-talk.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="~/lib/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/lib/owlcarousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    @RenderSection("Links", required: false)
 </head>
 
 <body>
-
-<main>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand me-lg-5 me-0" asp-action="Index" asp-controller="Home">
-                <img src="~/client/images/logo.png" class="logo-image img-fluid" alt="templatemo pod talk">
-            </a>
-
-            <form method="get" class="custom-form search-form flex-fill me-3" role="search">
-                <div class="input-group input-group-lg">
-                    <input name="search" type="search" class="form-control" id="search" placeholder="Search..."
-                           aria-label="Search">
-
-                    <button type="submit" class="form-control" id="submit">
-                        <i class="bi-search"></i>
-                    </button>
-                </div>
-            </form>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-lg-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" asp-action="Index" asp-controller="Home">Home</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="About" asp-controller="Home">About</a>
-                    </li>
-
-                    @* <li class="nav-item dropdown"> *@
-                    @*     <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" *@
-                    @*        data-bs-toggle="dropdown" aria-expanded="false"> *@
-                    @*         Pages *@
-                    @*     </a> *@
-                    @* *@
-                    @*     <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink"> *@
-                    @*         <li> *@
-                    @*             <a class="dropdown-item" href="listing-page.html">Listing Page</a> *@
-                    @*         </li> *@
-                    @* *@
-                    @*         <li> *@
-                    @*             <a class="dropdown-item" href="detail-page.html">Detail Page</a> *@
-                    @*         </li> *@
-                    @*     </ul> *@
-                    @* </li> *@
-
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="Contact" asp-controller="Home">Contact</a>
-                    </li>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <span id="username" style="display: none">@User.Identity?.Name</span>
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-controller="User" asp-action="Index">My Account</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                        </li>
-                    }
-                </ul>
-                @if (!SignInManager.IsSignedIn(User))
-                {
-                    <div class="ms-4">
-                        <a asp-action="Login" asp-controller="Account" class="btn custom-btn custom-border-btn smoothscroll">Login</a>
-                        <a asp-action="Register" asp-controller="Account" class="btn custom-btn custom-border-btn smoothscroll">Register</a>
-                    </div>
-                }
-            </div>
-        </div>
-    </nav>
-
-    @RenderBody()
-</main>
-
-
-<footer class="site-footer">
-    <div class="container">
-        <div class="row">
-
-            <div class="col-lg-6 col-12 mb-5 mb-lg-0">
-                <div class="subscribe-form-wrap">
-                    <h6>Subscribe. Every weekly.</h6>
-
-                    <form class="custom-form subscribe-form" action="#" method="get" role="form">
-                        <input type="email" name="subscribe-email" id="subscribe-email"
-                               class="form-control" placeholder="Email Address" required="">
-
-                        <div class="col-lg-12 col-12">
-                            <button type="submit" class="form-control" id="submit">Subscribe</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-md-0 mb-lg-0">
-                <h6 class="site-footer-title mb-3">Contact</h6>
-
-                <p class="mb-2"><strong class="d-inline me-2">Phone:</strong> 010-020-0340</p>
-
-                <p>
-                    <strong class="d-inline me-2">Email:</strong>
-                    @* <a href="#">inquiry@pod.co</a> *@
-                </p>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-12">
-                <h6 class="site-footer-title mb-3">Download Mobile</h6>
-
-                <div class="site-footer-thumb mb-4 pb-2">
-                    <div class="d-flex flex-wrap">
-                        <a href="#">
-                            <img src="images/app-store.png" class="me-3 mb-2 mb-lg-0 img-fluid" alt="">
-                        </a>
-
-                        <a href="#">
-                            <img src="images/play-store.png" class="img-fluid" alt="">
-                        </a>
-                    </div>
-                </div>
-
-                <h6 class="site-footer-title mb-3">Social</h6>
-
-                <ul class="social-icon">
-                    <li class="social-icon-item">
-                        <a href="#" class="social-icon-link bi-instagram"></a>
-                    </li>
-
-                    <li class="social-icon-item">
-                        <a href="#" class="social-icon-link bi-twitter"></a>
-                    </li>
-
-                    <li class="social-icon-item">
-                        <a href="#" class="social-icon-link bi-whatsapp"></a>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="container pt-5">
-        <div class="row align-items-center">
-
-            <div class="col-lg-2 col-md-3 col-12">
-                <a class="navbar-brand" asp-action="Index" asp-controller="Home">
-                    <img src="~/client/images/logo.png" class="logo-image img-fluid" alt="templatemo pod talk">
+<!--  Body Wrapper -->
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+        <!-- Sidebar scroll-->
+        <div>
+            <div class="brand-logo d-flex align-items-center justify-content-between mt-3">
+                <a asp-action="Index" asp-controller="Dashboard" class="text-nowrap logo-img text-center w-100 bg-black" style="border-radius: 7px">
+                    <img src="~/client/images/logo.png" width="180" alt=""/>
                 </a>
+                <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+                    <i class="ti ti-x fs-8"></i>
+                </div>
             </div>
-
-            <div class="col-lg-7 col-md-9 col-12">
-                <ul class="site-footer-links">
-                    <li class="site-footer-link-item">
-                        <a asp-action="Index" asp-controller="Home" class="site-footer-link">Homepage</a>
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                <ul id="sidebarnav">
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">Preview</span>
                     </li>
-
-                    <li class="site-footer-link-item">
-                        <a href="#" class="site-footer-link">Browse episodes</a>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" asp-controller="Home" asp-action="Index" aria-expanded="false" >
+                            <span>
+                                <i class="ti ti-layout-dashboard"></i>
+                            </span>
+                            <span class="hide-menu">Home</span>
+                        </a>
                     </li>
-
-                    <li class="site-footer-link-item">
-                        <a href="#" class="site-footer-link">Help Center</a>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" asp-controller="ViewProducts" asp-action="Index" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-cards"></i>
+                            </span>
+                            <span class="hide-menu">List surveys</span>
+                        </a>
                     </li>
-
-                    <li class="site-footer-link-item">
-                        <a href="#" class="site-footer-link">Contact Us</a>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/danh-sach-buoi-hoi-thao" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-cards"></i>
+                            </span>
+                            <span class="hide-menu">List Talks Show</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/danh-sach-bai-viet" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-file-description"></i>
+                            </span>
+                            <span class="hide-menu">List blogs</span>
+                        </a>
                     </li>
                 </ul>
-            </div>
+            </nav>
+            <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+    </aside>
+    <div class="body-wrapper">
+        <!--  Header Start -->
+        <header class="app-header">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <ul class="navbar-nav">
+                    <li class="nav-item d-block d-xl-none">
+                        <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-icon-hover" href="javascript:void(0)">
+                            <i class="ti ti-bell-ringing"></i>
+                            <div class="notification bg-primary rounded-circle"></div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="nav-search">
+                    <div>
+                        <div class="search_wrapper d-flex-center">
+                            <div class="search__wrapper__icon"></div>
+                            <input class="search_input" spellcheck="false" placeholder="Tìm kiếm khóa học, bài viết, video, ..." value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="px-0" id="navbarNav">
+                    <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+                        @{
+                            if(User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                        <img src="~/admin/assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                                        <div class="message-body">
+                                            <a href="tai-khoan/luu-tru" class="d-flex align-items-center gap-2 dropdown-item">
+                                                <i class="ti ti-mail fs-6"></i>
+                                                <p class="mb-0 fs-3">My Account</p>
+                                            </a>
+                                            <a asp-action="GetUserFavorite" asp-controller="Favorite" class="d-flex align-items-center gap-2 dropdown-item">
+                                                <i class="ti ti-mail fs-6"></i>
+                                                <p class="mb-0 fs-3">My Favorite Blogs</p>
+                                            </a>
+                                            <a asp-action="GetUserCart" asp-controller="Cart" class="d-flex align-items-center gap-2 dropdown-item">
+                                                <i class="ti ti-mail fs-6"></i>
+                                                <p class="mb-0 fs-3">Carts</p>
+                                            </a>
+                                            <a asp-controller="Account" asp-action="Logout" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                            else{
+                                <li class="nav-item">
+                                    <a asp-controller="Dashboard" asp-action="Login" class="btn btn-outline-primary mx-1 d-block">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Dashboard" asp-action="Register" class="btn btn-outline-primary mx-1 d-block">Register</a>
+                                </li>
+                            }
+                        }
+                    </ul>
 
-            <div class="col-lg-3 col-12">
-                <p class="copyright-text mb-0">Copyright © 2036 Dbk Team
+                </div>
+            </nav>
+        </header>
+        <div class="container-fluid">
 
-            </div>
+            @RenderBody()
         </div>
     </div>
-</footer>
+</div>
+<script src="~/admin/assets/libs/jquery/dist/jquery.js"></script>
+<script src="~/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
 
+<script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+@RenderSection("Scripts", required: false);
+<script>
+let EDITOR;
+if (document.querySelector( '#Description' )){
+        ClassicEditor
+            .create( document.querySelector( '#Description' ) )
+            .then(editor => {
+                EDITOR = editor;
+                editor.setData(document.querySelector( '#Description' ).value);
+                editor.model.document.on( 'change:data', (e) => {
+                     document.querySelector( '#Description' ).value = editor.getData();
+                })})
+            
+            .catch( error => {
+                console.error( error );
+            } );        
+    }
+    let ShortEDITOR;
+    if (document.querySelector( '#ShortDescription' )){
+            ClassicEditor
+                .create( document.querySelector( '#ShortDescription' ) )
+                .then(editor => {
+                    ShortEDITOR = editor;
+                    editor.setData(document.querySelector( '#ShortDescription' ).value);
+                    editor.model.document.on( 'change:data', (e) => {
+                         document.querySelector( '#ShortDescription' ).value = editor.getData();
+                    })})
+                
+                .catch( error => {
+                    console.error( error );
+                } );        
+        }
 
-<!-- JAVASCRIPT FILES -->
-<script src="~/client/js/jquery.min.js"></script>
-<script src="~/client/js/bootstrap.bundle.min.js"></script>
-<script src="~/client/js/owl.carousel.min.js"></script>
-<script src="~/client/js/custom.js"></script>
+</script>
+<script src="~/admin/assets/js/sidebarmenu.js"></script>
+<script src="~/admin/assets/js/app.min.js"></script>
+<script src="~/admin/assets/js/navbar.js"></script>
 
 </body>
-
 </html>

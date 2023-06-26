@@ -5,6 +5,7 @@ using learningGate.Data;
 using learningGate.Interfaces;
 using learningGate.ViewModels;
 using learningGate.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace learningGate.Controllers
 {
@@ -26,6 +27,7 @@ namespace learningGate.Controllers
         }
 
         [HttpGet("users")]
+        [Route("tai-khoan")]
         public async Task<IActionResult> Index()
         {
             if (User.IsInRole(UserRoles.Admin))
@@ -56,7 +58,12 @@ namespace learningGate.Controllers
 
             return RedirectToAction("Detail", "User", new { userD.Id });
         }
-
+        [Route("tai-khoan/luu-tru")]
+        public async Task<IActionResult> UserOrders()
+        {
+            var orders = await _userRepository.UserOrders();
+            return View(orders);
+        }
         //
         [HttpGet]
         public async Task<IActionResult> Detail(string id)
@@ -142,5 +149,6 @@ namespace learningGate.Controllers
 
             return RedirectToAction("Detail", "User", new { user.Id });
         }
+        
     }
 }

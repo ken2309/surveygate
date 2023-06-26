@@ -11,6 +11,8 @@ public partial class Product
 
     public string? Name { get; set; }
 
+    public string? AuthorName { get; set; }
+
     public string? Description { get; set; }
     
     public string? ShortDescription { get; set; }
@@ -25,7 +27,11 @@ public partial class Product
 
     public bool Status { get; set; }
 
+    public virtual ICollection<CartDetail> Carts { get; set; } = new List<CartDetail>();
+
     public virtual List<Image>? Images { get; set; } = new List<Image>();
+
+    public virtual ICollection<OrderDetail> OrderDetail { get; set; } = new List<OrderDetail>();
 
     public virtual Producttype? ProductType { get; set; }
 }

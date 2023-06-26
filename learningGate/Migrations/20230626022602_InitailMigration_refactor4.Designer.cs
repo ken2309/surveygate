@@ -11,8 +11,8 @@ using learningGate.Data;
 namespace learningGate.Migrations
 {
     [DbContext(typeof(learningGateDbContext))]
-    [Migration("20230607111615_ChangeImageDbContstructor2")]
-    partial class ChangeImageDbContstructor2
+    [Migration("20230626022602_InitailMigration_refactor4")]
+    partial class InitailMigration_refactor4
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -150,6 +150,33 @@ namespace learningGate.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("learningGate.Models.CartDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShoppingCartId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("ShoppingCartId");
+
+                    b.ToTable("CartDetail");
+                });
+
             modelBuilder.Entity("learningGate.Models.Employee", b =>
                 {
                     b.Property<string>("Id")
@@ -247,6 +274,54 @@ namespace learningGate.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("learningGate.Models.FavoriteCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FavoriteCart");
+                });
+
+            modelBuilder.Entity("learningGate.Models.FavoriteDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("FavoriteCartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShoppingCartId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FavoriteCartId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("FavoriteDetail");
+                });
+
             modelBuilder.Entity("learningGate.Models.Image", b =>
                 {
                     b.Property<int>("Id")
@@ -266,11 +341,86 @@ namespace learningGate.Migrations
                     b.ToTable("Images");
                 });
 
+            modelBuilder.Entity("learningGate.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("OrderStatusId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderStatusId");
+
+                    b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("learningGate.Models.OrderDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderDetail");
+                });
+
+            modelBuilder.Entity("learningGate.Models.OrderStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StatusName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderStatus");
+                });
+
             modelBuilder.Entity("learningGate.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("AuthorName")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
@@ -321,6 +471,24 @@ namespace learningGate.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductTypes");
+                });
+
+            modelBuilder.Entity("learningGate.Models.ShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShoppingCart");
                 });
 
             modelBuilder.Entity("learningGate.Models.Student", b =>
@@ -412,6 +580,44 @@ namespace learningGate.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("learningGate.Models.CartDetail", b =>
+                {
+                    b.HasOne("learningGate.Models.Product", "Product")
+                        .WithMany("Carts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("learningGate.Models.ShoppingCart", "ShoppingCart")
+                        .WithMany("CartDetails")
+                        .HasForeignKey("ShoppingCartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("ShoppingCart");
+                });
+
+            modelBuilder.Entity("learningGate.Models.FavoriteDetail", b =>
+                {
+                    b.HasOne("learningGate.Models.FavoriteCart", "FavoriteCart")
+                        .WithMany("FavoriteDetails")
+                        .HasForeignKey("FavoriteCartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("learningGate.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FavoriteCart");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("learningGate.Models.Image", b =>
                 {
                     b.HasOne("learningGate.Models.Product", "Product")
@@ -419,6 +625,36 @@ namespace learningGate.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("learningGate.Models.Order", b =>
+                {
+                    b.HasOne("learningGate.Models.OrderStatus", "OrderStatus")
+                        .WithMany()
+                        .HasForeignKey("OrderStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OrderStatus");
+                });
+
+            modelBuilder.Entity("learningGate.Models.OrderDetail", b =>
+                {
+                    b.HasOne("learningGate.Models.Order", "Order")
+                        .WithMany("OrderDetail")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("learningGate.Models.Product", "Product")
+                        .WithMany("OrderDetail")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
 
                     b.Navigation("Product");
                 });
@@ -434,14 +670,33 @@ namespace learningGate.Migrations
                     b.Navigation("ProductType");
                 });
 
+            modelBuilder.Entity("learningGate.Models.FavoriteCart", b =>
+                {
+                    b.Navigation("FavoriteDetails");
+                });
+
+            modelBuilder.Entity("learningGate.Models.Order", b =>
+                {
+                    b.Navigation("OrderDetail");
+                });
+
             modelBuilder.Entity("learningGate.Models.Product", b =>
                 {
+                    b.Navigation("Carts");
+
                     b.Navigation("Images");
+
+                    b.Navigation("OrderDetail");
                 });
 
             modelBuilder.Entity("learningGate.Models.Producttype", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("learningGate.Models.ShoppingCart", b =>
+                {
+                    b.Navigation("CartDetails");
                 });
 #pragma warning restore 612, 618
         }
