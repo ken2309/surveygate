@@ -28,6 +28,7 @@ public partial class Product
     public bool Status { get; set; }
 
     public virtual ICollection<CartDetail> Carts { get; set; } = new List<CartDetail>();
+    public virtual ICollection<FavoriteDetail> FavoriteDetails { get; set; } = new List<FavoriteDetail>();
 
     public virtual List<Image>? Images { get; set; } = new List<Image>();
 

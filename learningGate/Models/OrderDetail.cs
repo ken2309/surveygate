@@ -12,7 +12,7 @@ namespace learningGate.Models
         [Required]
         public int ProductId { get; set; }
         [Required]
-        public int Quantity { get; set; }
+        public int? Quantity { get; set; }
         [Required]
         public decimal? UnitPrice { get; set; }
         public Order Order { get; set; }

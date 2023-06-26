@@ -70,7 +70,7 @@ namespace learningGate.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
-            ViewData["OrderStatusId"] = new SelectList(_context.orderStatuses, "Id", "StatusName");
+            ViewData["OrderStatusId"] = new SelectList(_context.OrderStatus, "Id", "StatusName");
             return View();
         }
 
@@ -88,7 +88,7 @@ namespace learningGate.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["OrderStatusId"] = new SelectList(_context.orderStatuses, "Id", "StatusName", order.OrderStatusId);
+            ViewData["OrderStatusId"] = new SelectList(_context.OrderStatus, "Id", "StatusName", order.OrderStatusId);
             return View(order);
         }
 
@@ -106,7 +106,7 @@ namespace learningGate.Controllers
                 return NotFound();
             }
 
-            ViewData["OrderStatusId"] = new SelectList(_context.orderStatuses, "Id", "StatusName", order.OrderStatusId);
+            ViewData["OrderStatusId"] = new SelectList(_context.OrderStatus, "Id", "StatusName", order.OrderStatusId);
             return View(order);
         }
 
@@ -145,7 +145,7 @@ namespace learningGate.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["OrderStatusId"] = new SelectList(_context.orderStatuses, "Id", "StatusName", order.OrderStatusId);
+            ViewData["OrderStatusId"] = new SelectList(_context.OrderStatus, "Id", "StatusName", order.OrderStatusId);
             return View(order);
         }
 

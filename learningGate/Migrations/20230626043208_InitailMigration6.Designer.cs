@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using learningGate.Data;
 
@@ -10,9 +11,11 @@ using learningGate.Data;
 namespace learningGate.Migrations
 {
     [DbContext(typeof(learningGateDbContext))]
-    partial class learningGateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230626043208_InitailMigration6")]
+    partial class InitailMigration6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

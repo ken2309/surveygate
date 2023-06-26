@@ -32,14 +32,15 @@ namespace learningGate.Repository
                 {
                     cart = new FavoriteCart()
                     {
-                        UserId = userId.ToString(),
+                        UserId = userId,
+                        IsDeleted = false
                     };
                     _db.FavoriteCarts.Add(cart);
                 }
                 _db.SaveChanges();
                 // cart detail section
                 var cartItem = _db.FavoriteDetails
-                                  .FirstOrDefault(a => a.ShoppingCartId == cart.Id && a.ProductId == productId);
+                                  .FirstOrDefault(a => a.FavoriteCartId == cart.Id && a.ProductId == productId);
                 if (cartItem is not null)
                 {
                     cartItem.Quantity += qty;
@@ -50,8 +51,8 @@ namespace learningGate.Repository
                     cartItem = new FavoriteDetail
                     {
                         ProductId = product.Id,
-                        ShoppingCartId = cart.Id,
-                        Quantity = qty,
+                        FavoriteCartId = cart.Id,
+                        Quantity = 1,
                         UnitPrice = product.Price  // it is a new line after update
                     };
                     _db.FavoriteDetails.Add(cartItem);
@@ -61,6 +62,7 @@ namespace learningGate.Repository
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
             }
             var cartItemCount = await GetCartItemCount(userId);
             return cartItemCount;
@@ -80,7 +82,7 @@ namespace learningGate.Repository
                     throw new Exception("Invalid cart");
                 // cart detail section
                 var cartItem = _db.FavoriteDetails
-                                  .FirstOrDefault(a => a.ShoppingCartId == cart.Id && a.ProductId == productId);
+                                  .FirstOrDefault(a => a.FavoriteCartId == cart.Id && a.ProductId == productId);
                 if (cartItem is null)
                     throw new Exception("Not items in cart");
                 else if (cartItem.Quantity == 1 || isRemove.Value)
@@ -127,7 +129,7 @@ namespace learningGate.Repository
             }
             var data = await (from cart in _db.FavoriteCarts
                               join cartDetail in _db.FavoriteDetails
-                              on cart.Id equals cartDetail.ShoppingCartId
+                              on cart.Id equals cartDetail.FavoriteCartId
                               select new { cartDetail.Id }
                         ).ToListAsync();
             return data.Count;
@@ -146,7 +148,7 @@ namespace learningGate.Repository
                 var cart = await GetCart(userId);
                 if (cart is null)
                     throw new Exception("Invalid cart");
-                var cartDetail = _db.FavoriteDetails.Where(a => a.ShoppingCartId == cart.Id).ToList();
+                var cartDetail = _db.FavoriteDetails.Where(a => a.FavoriteCartId == cart.Id).ToList();
                 if (cartDetail.Count == 0)
                     throw new Exception("Cart is empty");
                 var order = new Order

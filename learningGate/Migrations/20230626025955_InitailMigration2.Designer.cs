@@ -11,8 +11,8 @@ using learningGate.Data;
 namespace learningGate.Migrations
 {
     [DbContext(typeof(learningGateDbContext))]
-    [Migration("20230626022602_InitailMigration_refactor4")]
-    partial class InitailMigration_refactor4
+    [Migration("20230626025955_InitailMigration2")]
+    partial class InitailMigration2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

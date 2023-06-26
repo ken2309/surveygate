@@ -11,8 +11,8 @@ using learningGate.Data;
 namespace learningGate.Migrations
 {
     [DbContext(typeof(learningGateDbContext))]
-    [Migration("20230626022500_InitailMigration_refactor3")]
-    partial class InitailMigration_refactor3
+    [Migration("20230626033012_InitailMigration4")]
+    partial class InitailMigration4
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -608,7 +608,7 @@ namespace learningGate.Migrations
                         .IsRequired();
 
                     b.HasOne("learningGate.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("FavoriteDetails")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -683,6 +683,8 @@ namespace learningGate.Migrations
             modelBuilder.Entity("learningGate.Models.Product", b =>
                 {
                     b.Navigation("Carts");
+
+                    b.Navigation("FavoriteDetails");
 
                     b.Navigation("Images");
 
